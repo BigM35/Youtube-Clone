@@ -27,13 +27,19 @@ const HomePage = () => {
   }, [token]);
   return (
     <div className="container">
-      <h1>Home Page for {user.username}!</h1>
+      <h1>
+        Welcome to your homepage
+      </h1>
+      <iframe src="https://www.youtube.com/watch?v=8iQMTrC-spc" width="50%" height="300">
+
+      </iframe>
+      {/* <h1>Home Page for {user.username}!</h1>
       {cars &&
         cars.map((car) => (
           <p key={car.id}>
             {car.year} {car.model} {car.make}
           </p>
-        ))}
+        ))} */}
     </div>
   );
 };
