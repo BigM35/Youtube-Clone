@@ -1,0 +1,198 @@
+{
+	"info": {
+		"_postman_id": "c1253677-f115-40a9-9a87-1b156fdf2c5b",
+		"name": "Youtube_API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get_All_Comments",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/comment/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"comment",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post_Comments",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjUwODMyOTMyLCJpYXQiOjE2NDk5Njg5MzIsImp0aSI6IjY3N2RiNWJmZmRhMDRiZjJiM2I0MDZkYWNhYTBjYjE1IiwidXNlcl9pZCI6MiwidXNlcm5hbWUiOiJMaW5rIiwiZmlyc3RfbmFtZSI6IiJ9.MKDnvh7JEXmWp5wKv7Nsqwy5DEx3ve6MqXG3PomxeWM",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Content-Length",
+						"value": "<calculated when request is sent>",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user\": 1,\r\n    \"video_id\": \"shdfgdgjftgj\",\r\n    \"text\": \"fighting monsters on the daily\",\r\n    \"likes\": 402,\r\n    \"dislikes\": 23\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/comment/auth/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"comment",
+						"auth",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get_Comment_By_Id",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjUwODMzNzU2LCJpYXQiOjE2NDk5Njk3NTYsImp0aSI6IjQ5Yjc4ZmQzYTM5MTRhZGM4YjkxYjczMGRhOGYzZmI2IiwidXNlcl9pZCI6MiwidXNlcm5hbWUiOiJMaW5rIiwiZmlyc3RfbmFtZSI6IiJ9.ySXZqnDHLSjF0E5kMf6xC4ADCOxaBO3gwQV4jehqZS4",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:8000/comment/3/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"comment",
+						"3",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update_comment",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjUwODMzNzU2LCJpYXQiOjE2NDk5Njk3NTYsImp0aSI6IjQ5Yjc4ZmQzYTM5MTRhZGM4YjkxYjczMGRhOGYzZmI2IiwidXNlcl9pZCI6MiwidXNlcm5hbWUiOiJMaW5rIiwiZmlyc3RfbmFtZSI6IiJ9.ySXZqnDHLSjF0E5kMf6xC4ADCOxaBO3gwQV4jehqZS4",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user\": 1,\r\n    \"video_id\": \"shdfgdgjftgj\",\r\n    \"text\": \"fighting monsters on the daily dog\",\r\n    \"likes\": 402,\r\n    \"dislikes\": 23\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/comment/3/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"comment",
+						"3",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get_Reply",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Post_Reply",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjUwODMzNzU2LCJpYXQiOjE2NDk5Njk3NTYsImp0aSI6IjQ5Yjc4ZmQzYTM5MTRhZGM4YjkxYjczMGRhOGYzZmI2IiwidXNlcl9pZCI6MiwidXNlcm5hbWUiOiJMaW5rIiwiZmlyc3RfbmFtZSI6IiJ9.ySXZqnDHLSjF0E5kMf6xC4ADCOxaBO3gwQV4jehqZS4",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user\": {\r\n        \"id\": 2\r\n    },\r\n    \"comment\": {\r\n        \"id\": 2\r\n    },\r\n    \"text\": \"hey you, hows it going\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/reply/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"reply",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
