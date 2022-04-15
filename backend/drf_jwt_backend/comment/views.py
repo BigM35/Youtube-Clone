@@ -8,9 +8,9 @@ from django.shortcuts import get_object_or_404
 
 @api_view(['GET'])
 @permission_classes([AllowAny])
-def get_video_comments(request, pk):
-    comment = Comment.objects.all(video_id = pk)
-    serializer = CommentSerializer(comment)
+def get_video_comments(request, video_id):
+    comment = Comment.objects.filter(video_id = video_id)
+    serializer = CommentSerializer(comment, many= True)
     return Response(serializer.data, status=status.HTTP_200_OK)
 
 
