@@ -19,23 +19,31 @@ def get_video_comments(request, video_id):
 def add_comment(request):
     serializer = CommentSerializer(data=request.data)
     if serializer.is_valid():
-        userInfo = {"id":request.user.id, "username":request.user.username}
-        serializer.save(user=userInfo)
-       # print (f"id: {serializer.data.id}, user:{'id':serializer.data.user.id, 'username':serializer.data.user.username}, video_id:{serializer.data.video_id}, text:{serializer.data.text}, likes:{serializer.data.likes}, dislikes:{serializer.data.dislikes}")
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
+        serializer.save(user=request.user)
+        result = {"id": serializer.data['id'], 
+                  "user": {"id": request.user.id, 
+                  'username': request.user.username}, 
+                  "video_id": serializer.data['video_id'], 
+                  "text": serializer.data['text'], 
+                  "likes": serializer.data['likes'], 
+                  "dislikes": serializer.data['dislikes']}
+        return Response(result, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
    
 
-@api_view(['GET', 'PUT'])
+@api_view(['PUT'])
 @permission_classes([IsAuthenticated])
-def user_comment_update(request, pk):
-        comment = get_object_or_404(Comment, pk = pk)
-        if request.method == 'GET':
-            serializer = CommentSerializer(comment)
-            return Response(serializer.data)
-        elif request.method == 'Put':
-            serializer = CommentSerializer(comment, data = request.data)
-            serializer.is_valid()
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_200_OK)
+def update_comment(request, pk):
+        comment = Comment.objects.filter( pk = pk)
+        serializer = CommentSerializer(comment, data = request.data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save(user=request.user)
+            result = {"id": serializer.data['id'], 
+                "user": {"id": request.user.id, 
+                'username': request.user.username}, 
+                "video_id": serializer.data['video_id'], 
+                "text": serializer.data['text'], 
+                "likes": serializer.data['likes'], 
+                "dislikes": serializer.data['dislikes']}
+        return Response(result, status=status.HTTP_200_OK)
  
