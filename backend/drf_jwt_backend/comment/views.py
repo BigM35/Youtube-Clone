@@ -20,30 +20,17 @@ def add_comment(request):
     serializer = CommentSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save(user=request.user)
-        result = {"id": serializer.data['id'], 
-                  "user": {"id": request.user.id, 
-                  'username': request.user.username}, 
-                  "video_id": serializer.data['video_id'], 
-                  "text": serializer.data['text'], 
-                  "likes": serializer.data['likes'], 
-                  "dislikes": serializer.data['dislikes']}
-        return Response(result, status=status.HTTP_201_CREATED)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
    
 
 @api_view(['PUT'])
 @permission_classes([IsAuthenticated])
 def update_comment(request, pk):
-        comment = Comment.objects.filter( pk = pk)
+        comment = Comment.objects.filter(pk = pk)
         serializer = CommentSerializer(comment, data = request.data)
         if serializer.is_valid(raise_exception=True):
             serializer.save(user=request.user)
-            result = {"id": serializer.data['id'], 
-                "user": {"id": request.user.id, 
-                'username': request.user.username}, 
-                "video_id": serializer.data['video_id'], 
-                "text": serializer.data['text'], 
-                "likes": serializer.data['likes'], 
-                "dislikes": serializer.data['dislikes']}
-        return Response(result, status=status.HTTP_200_OK)
+            return Response(serializer.data, status=status.HTTP_200_OK)
  
+# [OrderedDict([('id', 1), ('user', OrderedDict([('id', 1), ('password', 'pbkdf2_sha256$320000$9Tzzcq9SbYnat2E9DSn5yb$UfkLsYV8h55nCv9PuVJGO018V8ZgMcght7m8MjXW+Ps='), ('last_login', '2022-04-15T12:51:55.332234Z'), ('is_superuser', True), ('username', 'bigm'), ('first_name', ''), ('last_name', ''), ('email', 'e.m.krakue@gmail.com'), ('is_staff', True), ('is_active', True), ('date_joined', '2022-04-14T16:32:56.989939Z'), ('groups', []), ('user_permissions', [])])), ('video_id', 'dfdfdfaff'), ('text', 'Awesome stuff!!! Keep it up!'), ('likes', 5), ('dislikes', 1)])]

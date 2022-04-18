@@ -23,19 +23,10 @@ def user_reply(request, pk):
         serializer = ReplySerializer(reply, data=request.data)
         if serializer.is_valid():
             serializer.save(comment = comment,user= request.user)
-            result = {"id": serializer.data['id'], 
-                    "user": {"id": request.user.id, 
-                    'username': request.user.username}, 
-                    "comment":comment.id, 
-                    "text": serializer.data['text']}
-            return Response(result, status=status.HTTP_201_CREATED)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     elif request.method == 'GET':
         replies = Reply.objects.filter(comment = pk)
         serializer = ReplySerializer(replies, many= True)
-        result = {"id": serializer.data['id'], 
-                    "user": {"id": request.user.id, 
-                    "username" : request.user.username},  
-                    "text": serializer.data['text']}
-        return Response(result, status=status.HTTP_200_OK)
+        return Response(serializer.data, status=status.HTTP_200_OK)
    
