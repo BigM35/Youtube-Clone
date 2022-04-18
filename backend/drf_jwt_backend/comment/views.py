@@ -17,18 +17,14 @@ def get_video_comments(request, video_id):
 @api_view(['POST', 'GET'])
 @permission_classes([IsAuthenticated])
 def add_comment(request):
-    print(
-        'User ', f"{request.user.id} {request.user.like} {request.user.dislike}")
-    if request.method == 'POST':
-        serializer = CommentSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save(user=request.user)
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    elif request.method == 'GET':
-        comments = Comment.objects.filter(user_id=request.user.id)
-        serializer = CommentSerializer(comments, many=True)
-        return Response(serializer.data)
+    serializer = CommentSerializer(data=request.data)
+    if serializer.is_valid():
+        userInfo = {"id":request.user.id, "username":request.user.username}
+        serializer.save(user=userInfo)
+       # print (f"id: {serializer.data.id}, user:{'id':serializer.data.user.id, 'username':serializer.data.user.username}, video_id:{serializer.data.video_id}, text:{serializer.data.text}, likes:{serializer.data.likes}, dislikes:{serializer.data.dislikes}")
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+   
 
 @api_view(['GET', 'PUT'])
 @permission_classes([IsAuthenticated])
