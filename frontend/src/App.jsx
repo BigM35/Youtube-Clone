@@ -14,8 +14,26 @@ import Footer from "./components/Footer/Footer";
 
 // Util Imports
 import PrivateRoute from "./utils/PrivateRoute";
+import { useState } from "react";
+import axios from "axios";
+
+import DisplayVideos from "./components/DisplayVideos/DisplayVideos";
+
+
 
 function App() {
+  const [videos, setVideos] = useState([]);
+  const [filteredVideos, setFilteredVideos] = useState('mmorpg');
+  let token = "AIzaSyAqrE_B__qKlCdpRemjYOXyr3CtCyeJlwU"
+  async function fetchVideos() {
+    let response = await axios.get(`https://www.googleapis.com/youtube/v3/search?q=${filteredVideos}&key=${token}`);
+    setVideos(response.data.results);
+  };
+
+ 
+
+  
+
   return (
     <div>
       <Navbar />
@@ -30,7 +48,7 @@ function App() {
         />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route
+        <Route path="/home" element={<DisplayVideos videos={videos} />}
           path="/addcomment"
           element={
             <PrivateRoute>
