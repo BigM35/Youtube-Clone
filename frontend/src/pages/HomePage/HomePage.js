@@ -14,7 +14,7 @@ const HomePage = () => {
   useEffect(() => {
     const fetchComments = async () => {
       try {
-        let response = await axios.get("http://127.0.0.1:8000/api/cars/", {
+        let response = await axios.get("http://127.0.0.1:8000/comment", {
           headers: {
             Authorization: "Bearer " + token,
           },
@@ -32,6 +32,7 @@ const HomePage = () => {
 
       <h1>Home Page for {user.username}!</h1>
       <Link to="/addcomment">Add Comment!</Link>
+      <Link to="/videopage">Display Video!</Link>
 
       {comments &&
         comments.map((comment) => (

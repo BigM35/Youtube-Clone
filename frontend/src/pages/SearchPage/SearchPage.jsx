@@ -1,3 +1,15 @@
-let response = await axios.post(
-  "https://www.googleapis.com/youtube/v3/search?q={SEARCH QUERY HERE}&key={AIzaSyAqrE_B__qKlCdpRemjYOXyr3CtCyeJlwU}"
-);
+import { useEffect } from "react";
+import SearchBar from "./SearchBar";
+
+
+  return (
+    <div>
+      <SearchBar
+        filterSearch={filteredVideos}
+        setFilteredSearch={setFilteredVideos}
+      />
+      <VideoSearch videosProp={videos} />
+    </div>
+  );
+}
+export default VideoSearch;
