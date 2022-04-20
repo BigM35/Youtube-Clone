@@ -1,6 +1,6 @@
 import axios from "axios";
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 import useAuth from "../../hooks/useAuth";
 import useCustomForm from "../../hooks/useCustomForm";
@@ -20,6 +20,7 @@ const AddCommentPage = () => {
     initialValues,
     addNewComment
   );
+  const [comment, setComment] = useState('')
 
   async function addNewComment() {
     try {
@@ -70,21 +71,21 @@ const AddCommentPage = () => {
         </label>
         <label>
           Likes:{""}
-          <input
+          <button
             type={"integer"}
             name={"likes"}
             value={formData.likes}
-            onChange={handleInputChange}
-          />
+            onClick={handleInputChange}
+          >Like</button>
         </label>
         <label>
           Dislikes:{""}
-          <input
+          <button
             type={"integer"}
             name={"dislikes"}
             value={formData.dislikes}
-            onChange={handleInputChange}
-          />
+            onclick={handleInputChange}
+          >Dislike</button>
         </label>
 
         <button>Add Comment</button>
