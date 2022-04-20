@@ -20,9 +20,20 @@ const Comment = (props) => {
     initialValues,
     addNewComment
   );
-  const [comment, setComment] = useState('')
+  const [comments, setComments] = useState([])
   const[likes, setLikes] = useState()
   const[dislikes, setDislikes] = useState()
+  
+  async function getVideoComments(){
+    try{
+      let response = await axios.get( `http://127.0.0.1:8000/comment/kfoigjd`)
+      setComments(response.data)
+    } catch (err){
+      console.log(err)
+    }
+  }
+  
+  
   async function addNewComment() {
     try {
       let response = await axios.post(
@@ -34,44 +45,95 @@ const Comment = (props) => {
           },
         }
       );
-      setComment();
+      
     } catch (error) {
       console.log(error.message);
     }
   }
+  function handleSubmits(){
+    let newEntry = {
+    video_id: "",
+    text: "",
+    likes: "",
+    dislikes: "",
+    }
+  }
 
+
+  console.log("Comments data: ", comments)
   return (
-    <>
-        <label>
-          Comment:{""}
-          <input
-            type={"text"}
-            name={"comment"}
-            value={formData.comment}
-            onChange={handleInputChange}
-          />
-        </label>
-        <label>
-          Likes:{""}
-          <button
-            type={"integer"}
-            name={"likes"}
-            value={formData.likes}
-            onClick={handleInputChange}
-          >Like</button>
-        </label>
-        <label>
-          Dislikes:{""}
-          <button
-            type={"integer"}
-            name={"dislikes"}
-            value={formData.dislikes}
-            onclick={handleInputChange}
-          >Dislike</button>
-        </label>
+    comments.map((comment, index) => {
+      return (
+        <>
+        <table>
+          <thead>
+            <th>{comment.user.username}</th>
+          </thead>
+          <tbody>
+            <tr key={index}>
+              <td>{comment.text}</td>
+              <td>
+              <label>
+              {""}
+              <button
+                type={"integer"}
+                name={"likes"}
+                value={formData.likes}
+                onClick={handleInputChange}
+              >Like</button>
+            </label>
+            <label>
+              {""}
+              <button
+                type={"integer"}
+                name={"dislikes"}
+                value={formData.dislikes}
+                onclick={handleInputChange}
+              >Dislike</button>
+            </label>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+          <div>
+            {user.username}
+          </div>
+          <div>
+            <label>
+              <textarea 
+                type={"text"}
+                name={"text"}
+                value={formData.comment}
+                onChange={handleInputChange}
+              />
+              <button>Add Comment</button>
+            </label>
+          </div>
+          
+            <label>
+              {""}
+              <button
+                type={"integer"}
+                name={"likes"}
+                value={formData.likes}
+                onClick={handleInputChange}
+              >Like</button>
+            </label>
+            <label>
+              {""}
+              <button
+                type={"integer"}
+                name={"dislikes"}
+                value={formData.dislikes}
+                onclick={handleInputChange}
+              >Dislike</button>
+            </label>
 
-        <button>Add Comment</button>
-  </>  
+          
+      </>  
+
+      )
+    })
   );
 };
 

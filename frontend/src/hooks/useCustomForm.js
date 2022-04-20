@@ -12,10 +12,8 @@ const useCustomForm = (initialValues = {}, onSubmit) => {
     }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    onSubmit(formData);
-  };
+  
+
 
   const reset = () => {
     setFormValues(initialValues);
