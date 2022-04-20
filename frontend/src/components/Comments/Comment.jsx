@@ -13,7 +13,7 @@ let initialValues = {
   dislikes: "",
 };
 
-const AddCommentPage = () => {
+const Comment = (props) => {
   const [user, token] = useAuth();
   const navigate = useNavigate();
   const [formData, handleInputChange, handleSubmit] = useCustomForm(
@@ -41,26 +41,7 @@ const AddCommentPage = () => {
   }
 
   return (
-    <div className="container">
-      <form className="form" onSubmit={handleSubmit}>
-        <label>
-          User:{""}
-          <input
-            type={"text"}
-            name={"user"}
-            value={formData.user}
-            onChange={handleInputChange}
-          />
-        </label>
-        <label>
-          Video:{""}
-          <input
-            type={"text"}
-            name={"video_id"}
-            value={formData.video_id}
-            onChange={handleInputChange}
-          />
-        </label>
+    <>
         <label>
           Comment:{""}
           <input
@@ -90,9 +71,8 @@ const AddCommentPage = () => {
         </label>
 
         <button>Add Comment</button>
-      </form>
-    </div>
+  </>  
   );
 };
 
-export default AddCommentPage;
+export default Comment;

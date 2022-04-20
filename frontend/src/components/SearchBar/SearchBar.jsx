@@ -1,4 +1,9 @@
+import { React, useState } from "react";
+
+
+
 const SearchBar = (props) => {
+  const [filteredVideos, setFilteredVideos] = useState("mmorpg");
   return (
     <input
       className="inputfield"

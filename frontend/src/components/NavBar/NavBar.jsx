@@ -1,5 +1,6 @@
 import React from "react";
 import { useContext } from "react";
+import SearchBar from "../SearchBar/SearchBar";
 import { useNavigate, Link } from "react-router-dom";
 import AuthContext from "../../context/AuthContext";
 import "./NavBar.css";
@@ -15,6 +16,8 @@ const Navbar = () => {
             <b>YouTube</b>
           </Link>
         </li>
+        <li>{<SearchBar
+      />}</li>
         <li>
           {user ? (
             <button onClick={logoutUser}>Logout</button>
