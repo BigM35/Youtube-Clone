@@ -21,7 +21,8 @@ const AddCommentPage = () => {
     addNewComment
   );
   const [comment, setComment] = useState('')
-
+  const[likes, setLikes] = useState()
+  const[dislikes, setDislikes] = useState()
   async function addNewComment() {
     try {
       let response = await axios.post(
@@ -33,7 +34,7 @@ const AddCommentPage = () => {
           },
         }
       );
-      navigate("/");
+      setComment();
     } catch (error) {
       console.log(error.message);
     }
