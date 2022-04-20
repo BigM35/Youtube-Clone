@@ -12,14 +12,11 @@ const useCustomForm = (initialValues = {}, onSubmit) => {
     }
   };
 
-  
-
-
   const reset = () => {
     setFormValues(initialValues);
   };
 
-  return [formData, handleInputChange, handleSubmit, reset];
+  return [formData, handleInputChange, reset];
 };
 
 export default useCustomForm;
