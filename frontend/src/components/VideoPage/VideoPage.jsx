@@ -3,12 +3,14 @@ import DisplayVideo from "../DisplayVideo/DisplayVideo";
 import Comment from "../Comments/Comment";
 import { React, useEffect, useState } from "react";
 import axios from "axios";
+import SuggestedVideos from "../RelatedVideos/RelatedVideos";
 
 function VideoPage() {
   //const navigate = useNavigate();
   //navigate("/videopage");
   const [videos, setVideos] = useState([]);
   const [videoId, setVideoId] = useState("");
+  const [suggestedVids, setSuggestedVids] = useState([]);
   let token = "AIzaSyAqrE_B__qKlCdpRemjYOXyr3CtCyeJlwU";
   //let source = `https://www.googleapis.com/youtube/v3/videos?id=7lCDEYXw3mM&key=AIzaSyAqrE_B__qKlCdpRemjYOXyr3CtCyeJlwU=&part=snippet,contentDetails,statistics,status`
   // Fetch YT videos and store in video state
@@ -37,7 +39,9 @@ function VideoPage() {
     <>
       <DisplayVideo sourceProp={videos} videoId={videoId} title={videos} />
 
-      <Comment comments={Comment.comment} videoId={videoId} />
+      <Comment comments={Comment} videoId={videoId} />
+
+      <SuggestedVideos sourceProp2={suggestedVids} />
     </>
   );
 }
