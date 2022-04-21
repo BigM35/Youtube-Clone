@@ -1,7 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-
 import useAuth from "../../hooks/useAuth";
 import useCustomForm from "../../hooks/useCustomForm";
 
@@ -16,14 +15,12 @@ let initialValues = {
 const Comment = (props) => {
   const [user, token] = useAuth();
   const navigate = useNavigate();
-  const [formData, handleInputChange, handleSubmit] = useCustomForm(
-    initialValues,
-    addNewComment
-  );
+  
   const [comments, setComments] = useState([]);
   const [likes, setLikes] = useState();
   const [dislikes, setDislikes] = useState();
 
+  const [newComment, setNewComment] = useState([])
   useEffect(() => {
     async function getVideoComments() {
       try {
@@ -32,35 +29,40 @@ const Comment = (props) => {
         );
         setComments(response.data);
       } catch (err) {
-        console.log(err);
+          console.log(err);
       }
     }
     getVideoComments();
   }, []);
+  
 
-  async function addNewComment() {
-    try {
-      let response = await axios.post(
-        "http://127.0.0.1:8000/comment/",
-        formData,
-        {
-          headers: {
-            Authorization: "Bearer " + token,
-          },
+  async function addNewEntry(entries) {
+    try{
+      let response = await axios.post("http://127.0.0.1:8000/comment/", entries)
+      {
+        headers: {
+          Authorization: "Bearer " + token
         }
-      );
-    } catch (error) {
-      console.log(error.message);
+      }
+      let commentObj = [...comments, response.data];
+      setComments(commentObj)
+    }catch(err){
+      console.log(`Error: ${err}`);
     }
   }
-  function commentLayout() {
+
+  function handleSubmit(event) {
+    event.preventDefault();
     let newEntry = {
       video_id: props.videoId,
       text: comments.text,
       likes: comments.likes,
       dislikes: comments.dislikes + 1,
     };
+    addNewEntry(newEntry);
   }
+
+
 
   console.log("Comments data: ", comments);
   return (
@@ -92,7 +94,7 @@ const Comment = (props) => {
                     <button
                       type="submit"
                       name={"dislikes"}
-                      value={formData.dislikes}
+                      value={comments.dislikes}
                       onclick={handleSubmit}
                     >
                       👎
@@ -105,26 +107,23 @@ const Comment = (props) => {
           
         </>
       );
-    })
-    <div>
+    }),
+    <form onSubmit={handleSubmit}>
           <label>
-            <textarea
-              type={"text"}
-              name={"text"}
-              value={formData.comment}
-              onChange={(event) => setComments(event.target.value)}
+            <input
+              type="text"
+              value={comments.text}
+              onChange={(event) => setNewComment(event.target.value)}
             />
             <button
-              onClick={handleSubmit}
-              onChange={(event) => setComments(event.target.value)}
+              type="submit"
+            
             >
               Add Comment
             </button>
           </label>
-    </div>
+    </form>
   )
-    
-
 };
 
 export default Comment;
